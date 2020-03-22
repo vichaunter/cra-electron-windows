@@ -16,8 +16,8 @@ Due nature of project and how is loaded, for development is needed to have runni
 and electron will load served page by default setted up to localhost:3000.
 
 You need to run two commands in two different consoles:
-1. `yarn start:react`
-2. `yarn start`
+1. `yarn start`
+2. `yarn start:electron`
 
 Remember that this is only for development. After packaging and publishing the app will load properly react script
 from the bundled package.
