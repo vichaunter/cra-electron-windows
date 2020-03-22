@@ -1,4 +1,4 @@
-# Pure electron create react app for windows development boilerplate
+# Pure electron create react app boilerplate for windows development
 
 This project is a Boilerplate made only with npx create-react-app, and added electron and electron-build on top.  
 It has a really minimal configuration (/src/shared and /electron folders), to just make it work together.
