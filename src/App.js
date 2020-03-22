@@ -1,8 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { channels } from "./shared/constants";
+import logo from "./logo.svg";
+import "./App.css";
+
+const { ipcRenderer } = window;
 
 function App() {
+  const [appName, setAppName] = useState("");
+  const [appVersion, setAppVersion] = useState("");
+
+  useEffect(() => {
+    ipcRenderer.send(channels.APP_INFO);
+    ipcRenderer.on(channels.APP_INFO, (event, arg) => {
+      ipcRenderer.removeAllListeners(channels.APP_INFO);
+      const { appName, appVersion } = arg;
+      setAppName(appName);
+      setAppVersion(appVersion);
+    });
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +34,9 @@ function App() {
         >
           Learn React
         </a>
+        <p>
+          {appName} - {appVersion}
+        </p>
       </header>
     </div>
   );
