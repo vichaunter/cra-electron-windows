@@ -1,68 +1,69 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Pure electron create react app for windows development boilerplate
+
+This project is a Boilerplate made only with npx create-react-app, and added electron and electron-build on top.  
+It has a really minimal configuration (/src/shared and /electron folders), to just make it work together.
+
+It doesn't have any extra, is not using typescript, and is not ejected. The idea is to reduce as much as possible
+the maintenance, and focus on coding.
+
+Is only added small communication between electron and react as example to show app name and version:  
+- [electron/main.js](https://github.com/vichaunter/cra-electron-windows/blob/master/electron/main.js#L38)
+- [src/App.js](https://github.com/vichaunter/cra-electron-windows/blob/master/src/App.js#L38)
+
+## Run development mode
+
+Due nature of project and how is loaded, for development is needed to have running in background react service
+and electron will load served page by default setted up to localhost:3000.
+
+You need to run two commands in two different consoles:
+1. `yarn start:react`
+2. `yarn start`
+
+Remember that this is only for development. After packaging and publishing the app will load properly react script
+from the bundled package.
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, you can run all the basic cra scripts with only one change:
 
-### `yarn start`
+`start` from react becomes `start:react`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### `start`
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Initializes react app as usual, but with browser disabled. This will avoid react to open browser due as is linked
+with electron app will throw errors if is not loaded inside it.
 
-### `yarn test`
+### `start:electron`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Runs the electron app in the development mode loading localhost react beign served.  
+React should be running in [http://localhost:3000](http://localhost:3000) to view it inside the app (script `start`).
 
-### `yarn build`
+### `build:electron`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Will copy all electron dependencies into the build folder.  
+Needed for packaging later.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### `package`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Compiles build folder into executable app in dist folder.  
+For compiling mac you need package it from that OS.
 
-### `yarn eject`
+for building in linux you can change package line to this one:
+```
+"package": "electron-builder build --win --linux -c.extraMetadata.main=build/electron/main.js --publish never"
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Only adding --linux should work
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Help the project
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+This is a really basic project intended to be a starting point for anybody who needs a pure create react app without 
+typescript or loads of components and preconfigurations that some times is hard to mantain if you don't know it.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+If you find some problem in it, or want to collaborate with some improvement, feel free to send a request to add
+your changes on it.
 
-## Learn More
+## References
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
